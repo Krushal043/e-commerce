@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://e-commerce-jczk.onrender.com/api/kushal";
+const API_URL = "https://e-commerce-jczk.onrender.com/api/";
 
 export const getProducts = async (page = 1, limit = 10) => {
   const response = await axios.get(
