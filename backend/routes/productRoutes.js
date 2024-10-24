@@ -5,7 +5,11 @@ const {
   createProduct,
 } = require("../controllers/productController");
 
+// Fetch paginated list of products
 router.get("/", getProducts);
-router.post("/", createProduct);
+
+// Fetch a single product by ID
+router.get("/:id", getProductById);
+// router.post("/", createProduct);
 
 module.exports = router;
