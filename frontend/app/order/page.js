@@ -61,7 +61,7 @@ export default function OrderPage() {
 
   const handlePlaceOrder = async () => {
     if (validateForm()) {
-      await placeOrder({ products: cart, total, userDetails });
+      await placeOrder({ products: cart, total, user: userDetails });
       clearCart();
       setIsPlaced(true);
       handleClose();

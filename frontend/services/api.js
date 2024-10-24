@@ -13,7 +13,7 @@ export const getProducts = async (page = 1, limit = 10) => {
   return response.data;
 };
 
-export const placeOrder = async (order) => {
-  const response = await axios.post(`${API_URL}/orders`, order);
+export const placeOrder = async (products, total, user) => {
+  const response = await axios.post(`${API_URL}/orders`, products, total, user);
   return response.data;
 };

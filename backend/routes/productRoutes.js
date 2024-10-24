@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   getProducts,
   createProduct,
+  getProductById,
 } = require("../controllers/productController");
 
 // Fetch paginated list of products
