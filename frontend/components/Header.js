@@ -15,8 +15,6 @@ const Header = () => {
 
   const { isAuthenticated, logout } = useAuth();
 
-  console.log({ isAuthenticated });
-
   const router = useRouter();
 
   const handleOpen = () => setModalOpen(true);
