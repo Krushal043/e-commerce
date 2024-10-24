@@ -57,7 +57,7 @@ export default function CartPage() {
 
   return (
     <Container>
-      <Typography variant="h4" className="mb-4 mt-20">
+      <Typography variant="h4" className="mb-4 products">
         Your Cart
       </Typography>
 

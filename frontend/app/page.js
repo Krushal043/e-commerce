@@ -65,7 +65,7 @@ export default function HomePage() {
   return (
     <Container maxWidth="lg" className="my-8">
       {loading ? (
-        <div className="flex justify-center mt-24">
+        <div className="flex justify-center products">
           <CircularProgress />
         </div>
       ) : (
@@ -73,12 +73,12 @@ export default function HomePage() {
           <Typography
             variant="h4"
             component="h1"
-            className="text-center mb-6 mt-20"
+            className="text-center mb-6 products"
           >
             Product Listings
           </Typography>
 
-          <Box display="flex" justifyContent="center" mb={3}>
+          <Box className="gap-2" display="flex" justifyContent="center">
             {categories.map((category) => (
               <Button
                 key={category}
