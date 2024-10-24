@@ -22,13 +22,13 @@ const ProductCard = ({ product, addToCart }) => (
         {product.description}
       </Typography>
       <Typography variant="h6">${product.price}</Typography>
-      {/* <Button
+      <Button
         onClick={() => addToCart(product)}
         variant="contained"
         color="primary"
       >
         Add to Cart
-      </Button> */}
+      </Button>
     </CardContent>
   </Card>
 );

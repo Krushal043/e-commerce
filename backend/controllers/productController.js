@@ -1,9 +1,18 @@
 const Product = require("../models/productModel");
 
 exports.getProducts = async (req, res) => {
+  const page = parseInt(req.query.page) || 1; // default to page 1
+  const limit = parseInt(req.query.limit) || 10; // default to 10 products per page
+  const skip = (page - 1) * limit;
+
   try {
-    const products = await Product.find();
-    res.json(products);
+    const products = await Product.find().limit(limit).skip(skip);
+    const totalProducts = await Product.countDocuments();
+    res.json({
+      products,
+      totalPages: Math.ceil(totalProducts / limit),
+      currentPage: page,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
