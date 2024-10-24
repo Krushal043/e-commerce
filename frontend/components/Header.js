@@ -6,11 +6,16 @@ import Link from "next/link";
 import { useCart } from "../context/CartContext";
 import AuthModal from "./AuthModal";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 const Header = () => {
   const { cart } = useCart();
   const [modalOpen, setModalOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+
+  const { isAuthenticated, logout } = useAuth();
+
+  console.log({ isAuthenticated });
 
   const router = useRouter();
 
@@ -29,6 +34,7 @@ const Header = () => {
 
   const handelLogout = () => {
     setIsLogin(false);
+    logout();
     router.push("/");
     localStorage.removeItem("token");
   };
@@ -37,9 +43,11 @@ const Header = () => {
     <>
       <AppBar position="fixed" color="primary" className="shadow-md">
         <Toolbar className="flex justify-between items-center">
-          <Typography variant="h6" className="flex-grow">
-            My E-Commerce
-          </Typography>
+          <Link href="/" passHref>
+            <Typography variant="h6" className="flex-grow">
+              My E-Commerce
+            </Typography>
+          </Link>
           <div className="flex items-center space-x-4">
             <Link href="/" passHref>
               <Button color="inherit">Home</Button>
@@ -56,7 +64,7 @@ const Header = () => {
                 )}
               </Button>
             </Link>
-            {!isLogin ? (
+            {!isAuthenticated ? (
               <Button color="inherit" onClick={handleOpen}>
                 Login/Register
               </Button>

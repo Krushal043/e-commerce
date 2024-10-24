@@ -10,12 +10,17 @@ import {
   CircularProgress,
 } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import AuthModal from "@/components/AuthModal";
 
 export default function CartPage() {
   const { cart, total, updateQuantity, removeFromCart, clearCart } = useCart();
   const [quantityError, setQuantityError] = useState("");
   const [id, setId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const router = useRouter();
+
   const handleQuantityChange = (itemId, value) => {
     if (value > 10 && itemId) {
       setId(itemId);
@@ -37,6 +42,19 @@ export default function CartPage() {
     clearCart().finally(() => setLoading(false));
   };
 
+  const handlePlaceOrder = () => {
+    if (localStorage.getItem("token")) {
+      router.push("/order");
+    } else {
+      setModalOpen(true);
+    }
+  };
+  const handleClose = () => setModalOpen(false);
+
+  const handleLoginSuccess = () => {
+    router.push("/order");
+  };
+
   return (
     <Container>
       <Typography variant="h4" className="mb-4 mt-[70px]">
@@ -47,11 +65,14 @@ export default function CartPage() {
         <Typography variant="h5">Total: ${total.toFixed(2)}</Typography>
         {cart.length !== 0 && (
           <div>
-            <Link href="/order">
-              <Button variant="contained" color="primary" className="mr-2">
-                Place Order
-              </Button>
-            </Link>
+            <Button
+              variant="contained"
+              color="primary"
+              className="mr-2"
+              onClick={handlePlaceOrder}
+            >
+              Place Order
+            </Button>
             <Button
               variant="contained"
               color="secondary"
@@ -116,6 +137,12 @@ export default function CartPage() {
               </div>
             </div>
           ))}
+
+          <AuthModal
+            open={modalOpen}
+            handleClose={handleClose}
+            handleLoginSuccess={handleLoginSuccess}
+          />
         </>
       )}
     </Container>

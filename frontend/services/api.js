@@ -14,7 +14,16 @@ export const getProducts = async (page = 1, limit = 10) => {
 };
 
 export const placeOrder = async (products, total, user) => {
-  const response = await axios.post(`${API_URL}/orders`, products, total, user);
+  const token = localStorage.getItem("token");
+  const response = await axios.post(
+    `${API_URL}/orders`,
+    { products, total, user },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include token in the headers
+      },
+    }
+  );
   return response.data;
 };
 

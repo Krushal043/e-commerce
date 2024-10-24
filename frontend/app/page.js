@@ -9,6 +9,8 @@ import {
   Pagination,
   Typography,
   CircularProgress,
+  Box,
+  Button,
 } from "@mui/material";
 import { useCart } from "../context/CartContext";
 
@@ -17,7 +19,11 @@ export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [displayProduct, setDisplayProduct] = useState();
   const { addToCart } = useCart();
+
+  const categories = ["all", "laptop", "smartphone", "smartwatch"];
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,6 +31,7 @@ export default function HomePage() {
       try {
         const { products, totalPages } = await getProducts(currentPage);
         setProducts(products);
+        setDisplayProduct(products);
         setTotalPages(totalPages);
       } catch (error) {
         console.error("Failed to fetch products:", error);
@@ -35,8 +42,24 @@ export default function HomePage() {
     fetchProducts();
   }, [currentPage]);
 
+  useEffect(() => {
+    const filterProducts = () => {
+      const filtered =
+        selectedCategory === "all"
+          ? products
+          : products.filter((product) => product.category === selectedCategory);
+
+      setDisplayProduct(filtered);
+    };
+    filterProducts();
+  }, [selectedCategory, products]);
+
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
+  };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
 
   return (
@@ -48,6 +71,21 @@ export default function HomePage() {
       >
         Product Listings
       </Typography>
+
+      <Box display="flex" justifyContent="center" mb={3}>
+        {categories.map((category) => (
+          <Button
+            key={category}
+            variant={selectedCategory === category ? "contained" : "outlined"}
+            color="primary"
+            onClick={() => handleCategoryChange(category)}
+            className="mx-2"
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </Button>
+        ))}
+      </Box>
+
       {loading ? (
         <div className="flex justify-center mt-10">
           <CircularProgress />
@@ -55,7 +93,7 @@ export default function HomePage() {
       ) : (
         <>
           <Grid container spacing={3}>
-            {products.map((product) => (
+            {displayProduct.map((product) => (
               <Grid item xs={12} sm={6} md={4} key={product._id}>
                 <ProductCard product={product} addToCart={addToCart} />
               </Grid>

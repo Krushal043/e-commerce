@@ -10,6 +10,7 @@ import {
   Alert,
 } from "@mui/material";
 import { loginUser, registerUser } from "@/services/api";
+import { useAuth } from "@/context/AuthContext";
 
 const AuthModal = ({ open, handleClose, handleLoginSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,6 +18,8 @@ const AuthModal = ({ open, handleClose, handleLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const { login } = useAuth();
 
   const handleToggle = () => {
     setIsLogin((prev) => !prev);
@@ -52,6 +55,7 @@ const AuthModal = ({ open, handleClose, handleLoginSuccess }) => {
         const data = await loginUser({ email, password });
         localStorage.setItem("token", data.token);
         handleLoginSuccess();
+        login({ email, password });
       } else {
         await registerUser({ username, email, password });
         handleToggle();
