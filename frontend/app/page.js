@@ -65,7 +65,7 @@ export default function HomePage() {
   return (
     <Container maxWidth="lg" className="my-8">
       {loading ? (
-        <div className="flex justify-center mt-[100px]">
+        <div className="flex justify-center mt-24">
           <CircularProgress />
         </div>
       ) : (
@@ -73,7 +73,7 @@ export default function HomePage() {
           <Typography
             variant="h4"
             component="h1"
-            className="text-center mb-6 mt-[70px]"
+            className="text-center mb-6 mt-20"
           >
             Product Listings
           </Typography>

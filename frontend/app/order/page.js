@@ -74,12 +74,12 @@ export default function OrderPage() {
     <ProtectedRoute>
       <Container>
         {isPlaced ? (
-          <Typography variant="h4" className="text-center mt-[70px]">
+          <Typography variant="h4" className="text-center mt-20">
             Order Placed! Redirecting...
           </Typography>
         ) : (
           <>
-            <div className="flex justify-between items-center mt-[70px] mb-4">
+            <div className="flex justify-between items-center mt-20 mb-4">
               <Typography variant="h4">Order Summary</Typography>
               {cart.length > 0 && (
                 <Button
