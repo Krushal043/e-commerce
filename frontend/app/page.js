@@ -64,34 +64,35 @@ export default function HomePage() {
 
   return (
     <Container maxWidth="lg" className="my-8">
-      <Typography
-        variant="h4"
-        component="h1"
-        className="text-center mb-6 mt-[70px]"
-      >
-        Product Listings
-      </Typography>
-
-      <Box display="flex" justifyContent="center" mb={3}>
-        {categories.map((category) => (
-          <Button
-            key={category}
-            variant={selectedCategory === category ? "contained" : "outlined"}
-            color="primary"
-            onClick={() => handleCategoryChange(category)}
-            className="mx-2"
-          >
-            {category.charAt(0).toUpperCase() + category.slice(1)}
-          </Button>
-        ))}
-      </Box>
-
       {loading ? (
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center mt-[100px]">
           <CircularProgress />
         </div>
       ) : (
         <>
+          <Typography
+            variant="h4"
+            component="h1"
+            className="text-center mb-6 mt-[70px]"
+          >
+            Product Listings
+          </Typography>
+
+          <Box display="flex" justifyContent="center" mb={3}>
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={
+                  selectedCategory === category ? "contained" : "outlined"
+                }
+                color="primary"
+                onClick={() => handleCategoryChange(category)}
+                className="mx-2"
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </Button>
+            ))}
+          </Box>
           <Grid container spacing={3}>
             {displayProduct.map((product) => (
               <Grid item xs={12} sm={6} md={4} key={product._id}>
