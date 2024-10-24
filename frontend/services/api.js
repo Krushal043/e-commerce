@@ -17,3 +17,13 @@ export const placeOrder = async (products, total, user) => {
   const response = await axios.post(`${API_URL}/orders`, products, total, user);
   return response.data;
 };
+
+export const registerUser = async (userData) => {
+  const response = await axios.post(`${API_URL}/auth/register`, userData);
+  return response.data;
+};
+
+export const loginUser = async (credentials) => {
+  const response = await axios.post(`${API_URL}/auth/login`, credentials);
+  return response.data;
+};
