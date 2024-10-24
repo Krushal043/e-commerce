@@ -2,14 +2,15 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/api";
 
-// frontend/services/api.js
-
 export const getProducts = async (page = 1, limit = 10) => {
-  const response = await fetch(`/api/products?page=${page}&limit=${limit}`);
-  if (!response.ok) {
+  const response = await axios.get(
+    `${API_URL}/products?page=${page}&limit=${limit}`
+  );
+
+  if (response.statusText !== "OK") {
     throw new Error("Failed to fetch products");
   }
-  return response.json();
+  return response.data;
 };
 
 export const placeOrder = async (order) => {

@@ -1,8 +1,8 @@
 const Product = require("../models/productModel");
 
 exports.getProducts = async (req, res) => {
-  const page = parseInt(req.query.page) || 1; // default to page 1
-  const limit = parseInt(req.query.limit) || 10; // default to 10 products per page
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
   const skip = (page - 1) * limit;
 
   try {

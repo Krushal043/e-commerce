@@ -7,8 +7,6 @@ import Link from "next/link";
 export default function CartPage() {
   const { cart, total, clearCart } = useCart();
 
-  console.log({ cart });
-
   return (
     <Container>
       <Typography variant="h4">Your Cart</Typography>

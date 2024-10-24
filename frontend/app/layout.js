@@ -14,9 +14,11 @@ export default function RootLayout({ children }) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <CartProvider>
-            {" "}
             <Header />
-            <main style={{ minHeight: "calc(100vh - 150px)" }}>{children}</main>
+            <main style={{ minHeight: "calc(100vh - 150px)" }}>
+              {" "}
+              {children}
+            </main>
             <Footer />
           </CartProvider>
         </ThemeProvider>
